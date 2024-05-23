@@ -43,8 +43,8 @@ const BibliotecaDeFaturas: React.FC = () => {
 
   return (
     <Layout>
-      <h1 className="text-3xl mb-4">Biblioteca de Faturas</h1>
-      <div className="mb-4 p-4 border rounded-lg max-w-lg mx-auto">
+      <h1 className="text-3xl mb-4 pl-4">Biblioteca de Faturas</h1>
+      <div className="mb-4 p-4 border rounded-lg max-w-lg">
         <div className="mb-4">
           <label className="block mb-2">No DO CLIENTE</label>
           <select 
@@ -79,7 +79,7 @@ const BibliotecaDeFaturas: React.FC = () => {
           Download
         </button>
       </div>
-      <ul>
+      <ul className="p-4">
         {filteredInvoices.map(invoice => (
           <li key={invoice.id} className="mb-2">
             <div className="flex justify-between items-center border p-2">
