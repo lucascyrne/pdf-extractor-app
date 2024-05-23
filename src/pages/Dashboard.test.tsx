@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import Dashboard from './Dashboard';
 
@@ -18,7 +19,7 @@ describe('Dashboard', () => {
       energyCompensatedQty: 300,
       energyCompensatedValue: 150,
       publicLightingValue: 25,
-      fileName: '3000055479-01-2023.pdf'
+      fileName: '3000055479-01-2023.pdf',
     },
     {
       id: 2,
@@ -31,7 +32,7 @@ describe('Dashboard', () => {
       energyCompensatedQty: 350,
       energyCompensatedValue: 175,
       publicLightingValue: 30,
-      fileName: '3004298116-02-2023.pdf'
+      fileName: '3004298116-02-2023.pdf',
     },
   ];
 
@@ -40,14 +41,20 @@ describe('Dashboard', () => {
   });
 
   test('renders Dashboard and shows charts', async () => {
-    render(<Dashboard />);
+    render(
+      <BrowserRouter>
+        <Dashboard />
+      </BrowserRouter>
+    );
 
     await waitFor(() => {
       expect(screen.getByText(/3000055479/)).toBeInTheDocument();
       expect(screen.getByText(/3004298116/)).toBeInTheDocument();
     });
 
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: '3000055479' } });
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: '3000055479' },
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Consumo de Energia (kWh)')).toBeInTheDocument();

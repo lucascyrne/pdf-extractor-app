@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import BibliotecaDeFaturas from './BibliotecaDeFaturas';
 
@@ -40,7 +41,11 @@ describe('BibliotecaDeFaturas', () => {
   });
 
   test('renders BibliotecaDeFaturas and downloads an invoice', async () => {
-    render(<BibliotecaDeFaturas />);
+    render(
+      <BrowserRouter>
+        <BibliotecaDeFaturas />
+      </BrowserRouter>
+    );
 
     await waitFor(() => {
       expect(screen.getByText(/3000055479 - JAN\/2023/)).toBeInTheDocument();
@@ -50,8 +55,11 @@ describe('BibliotecaDeFaturas', () => {
     const downloadButtons = screen.getAllByText('Download');
     fireEvent.click(downloadButtons[0]);
 
-    expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:3001/invoices/download/3000055479-01-2023.pdf', {
-      responseType: 'blob',
-    });
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      'http://localhost:3001/invoices/download/3000055479-01-2023.pdf',
+      {
+        responseType: 'blob',
+      }
+    );
   });
 });
