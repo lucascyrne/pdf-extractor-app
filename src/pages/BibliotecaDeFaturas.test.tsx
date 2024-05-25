@@ -56,7 +56,7 @@ describe('BibliotecaDeFaturas', () => {
     fireEvent.click(downloadButtons[0]);
 
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      'http://localhost:3001/invoices/download/3000055479-01-2023.pdf',
+      `${process.env.REACT_APP_API_URL}/invoices/download/3000055479-01-2023.pdf`,
       {
         responseType: 'blob',
       }

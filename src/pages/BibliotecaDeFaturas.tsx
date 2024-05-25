@@ -25,7 +25,7 @@ const BibliotecaDeFaturas: React.FC = () => {
   const [month, setMonth] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/invoices').then((response) => {
+    axios.get(`${process.env.REACT_APP_API_URL}/invoices`).then((response) => {
       setInvoices(response.data);
       const uniqueClientNumbers: string[] = Array.from(
         new Set(response.data.map((invoice: Invoice) => invoice.clientNumber))
@@ -35,17 +35,23 @@ const BibliotecaDeFaturas: React.FC = () => {
   }, []);
 
   const handleDownload = (fileName: string) => {
+    console.log(`Attempting to download file: ${fileName}`);
     axios
-      .get(`http://localhost:3001/invoices/download/${fileName}`, {
+      .get(`${process.env.REACT_APP_API_URL}/invoices/download/${fileName}`, {
         responseType: 'blob',
       })
       .then((response) => {
+        console.log(`Download response received for file: ${fileName}`);
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
         link.setAttribute('download', fileName);
         document.body.appendChild(link);
         link.click();
+        console.log(`File download initiated: ${fileName}`);
+      })
+      .catch((error) => {
+        console.error(`Error downloading file: ${fileName}`, error);
       });
   };
 

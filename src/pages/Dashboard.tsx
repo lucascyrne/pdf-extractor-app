@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
   const [selectedClientNumber, setSelectedClientNumber] = useState<string>('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/invoices').then((response) => {
+    axios.get(`${process.env.REACT_APP_API_URL}/invoices`).then((response) => {
       setInvoices(response.data);
       const uniqueClientNumbers: string[] = Array.from(
         new Set(response.data.map((invoice: Invoice) => invoice.clientNumber))
