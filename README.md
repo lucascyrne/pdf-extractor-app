@@ -185,3 +185,15 @@ This script reads PDF files, extracts the relevant data, and stores it in the Po
    ```
 
 By following these steps, you should be able to set up and run the PDF extractor application successfully. If you encounter any issues, please check the logs and ensure that all prerequisites are met.
+
+### Environment Variables
+
+1. **.env.development**
+
+REACT_APP_API_URL=http://localhost:3001
+REACT_APP_FIREBASE_PROJECT_ID=pdf-extractor-react-d87ce
+
+2. **.env.production**
+
+REACT_APP_API_URL=https://pdf-extractor-app.uc.r.appspot.com
+REACT_APP_FIREBASE_PROJECT_ID=pdf-extractor-react-d87ce
